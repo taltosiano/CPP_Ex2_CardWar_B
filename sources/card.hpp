@@ -1,12 +1,16 @@
+#ifndef Card_hpp
+#define Card_hpp
+#pragma once
 
 namespace ariel{
+
 class Card{
 
 private:
-    /* data */
+    int number;
 public:
-    card();
-};
-
-    
+    Card(int number);
+    int getCardNum();
+};    
 }
+#endif
