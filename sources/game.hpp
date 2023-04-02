@@ -1,3 +1,6 @@
+#ifndef Game_hpp
+#define Game_hpp
+#pragma once
 #include "player.hpp"
 
 namespace ariel{
@@ -15,16 +18,7 @@ class Game{
         void printWiner();
         void printLog();
         void printStats();
-        void printWinner();
     };
-    
-    game::game(/* args */)
-    {
-    }
-    
-    game::~game()
-    {
-    }
-    
-    
-} // namespace ariel
+      
+} 
+#endif
