@@ -1,16 +1,22 @@
 #include "game.hpp"
+#include "card.hpp"
+#include "player.hpp"
+#include <iostream>
+#include <string>
 
+
+using namespace std;
 namespace ariel{
 
-Game::Game(){
-
+Game::Game(Player p1, Player p2){
+    
 }
 
 void Game::playTurn(){
 
 }
 
-// print the last turn stats. For example:
+// print the last turn stats. 
 void Game::printLastTurn(){
 
 }
@@ -36,8 +42,4 @@ void Game::printStats(){
 
 }
 
-void Game::printWinner(){
-    
 }
-}
-
