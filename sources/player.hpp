@@ -1,26 +1,28 @@
- #include "card.hpp"
+#ifndef Player_hpp
+#define Player_hpp
+#pragma once
+#include "card.hpp"
+#include <string>
 
-namespace ariel{
 using namespace std;
+namespace ariel{
 
 class Player{
- 
+    
     private:
-        std::string name;
-        int numOfCards numCards;
-        std::string topCard;
-
+        string name;
+        
     public:
-        Player(std::string name); // constructor declaration
-
-        std::string getName();
-        void stacksize();
-        void cardesTaken();
+        Player(string name); // constructor declaration
+        Player();
+        string getName();
+        int stacksize();
+        int cardesTaken();
         int numOfCards();
-        std::string cardOnTop();
+        int cardOnTop();
 
     };
-    
+        
 
 }
- 
+#endif
