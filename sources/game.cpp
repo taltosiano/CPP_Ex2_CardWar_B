@@ -50,6 +50,7 @@ void Game::playTurn(){
      this->lastTurn = this->printWiner() + "won." this->p1.getName() + "play with " + cp1.cardToString() + "and "
                       + this->p2.getName() + "play with" + cp2.cardToString();
      this->cardsOnTable = 0; 
+     this->setLog(lastTurn);
     }
     
 
@@ -86,9 +87,15 @@ void Game::printWiner(){
   
 }
 
+void Game::setLog(string addLog){
+    this->log.push_back(addLog);
+}
+
 // prints all the turns played one line per turn (same format as game.printLastTurn())
 void Game::printLog(){
-
+    for(int i = 0; i<log.size(); i++){
+    cout << this->log[i] << endl;
+ }
 }
 
 // for each player prints basic statistics: win rate, cards won, <other stats you want to print>.
