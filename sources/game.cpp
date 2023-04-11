@@ -12,7 +12,7 @@ Game::Game(Player p1, Player p2){
     
     this->cardsOnTable();
     this->lastTurn = "";
-    this->winRate
+    this->winRate = 0;
 }
 
 void Game::startGame(){
