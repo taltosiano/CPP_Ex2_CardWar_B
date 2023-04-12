@@ -3,6 +3,10 @@
 #include "player.hpp"
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <random>
+#include <vector>
+
 
 
 using namespace std;
@@ -10,14 +14,50 @@ namespace ariel{
 
 Game::Game(Player p1, Player p2){
     
-    this->cardsOnTable();
+    this->cardsOnTable = 0;
     this->lastTurn = "";
     this->winRate = 0;
+    this->beforeGame();
 }
 
-void Game::startGame(){
-    p1.stacksize() == 26;
-    p2.stacksize() == 26;
+void Game::beforeGame(){
+    vector<Card> deck(52);
+    for (int num = 1; num <= 13; num++) {
+        deck.push_back(Card(num, Spade));     //each number with each shape.
+        deck.push_back(Card(num, Heart)); 
+        deck.push_back(Card(num, Diamond)); 
+        deck.push_back(Card(num, Clover)); 
+     }
+
+      // Shuffle the deck randomly
+    srand(time(NULL));  // initialize random seed
+    for (int i = 0; i < deck.size(); i++) {
+        int tmp = i + rand() % (n - i);
+        swap(deck[tmp], deck[j]);
+    }
+
+     // shuffle the deck
+    random_device rd;                     
+    mt19937 g(rd());                      //In writing this command I was helped by google
+    shuffle(deck.begin(), deck.end(), g);
+
+
+    // divide the deck for 2
+      for(int i = 0; i < 52; i++)
+        {
+        p1.stack.push_back(deck.back());  // take the last card from the deck
+        deck.pop_back();
+        p2.stack.push_back(deck.back());  // take the last card from the deck
+        deck.pop_back();
+
+            int play1 = rand() % deck.size() + 1;
+            this->p1.stack(deck.at(play1));
+            tempPack.erase(deck.begin() + play1);
+            int play2 = rand() % deck.size() + 1;
+            this->p2.stack(deck.at(play2));
+            tempPack.erase(deck.begin() + play2);
+        } 
+  
 }
 
 void Game::playTurn(){
@@ -56,6 +96,9 @@ void Game::playTurn(){
 
 // print the last turn stats. 
 void Game::printLastTurn(){
+    if(p1.stacksize() == 26){
+        cout << "no turns played yet" << endl;
+    }
     cout << this->lastTurn << endl;
 
 }

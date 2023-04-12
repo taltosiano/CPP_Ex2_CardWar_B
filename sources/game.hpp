@@ -10,9 +10,12 @@ class Game{
         Player p1;
         Player p2;
         vector<string> log;
+        int cardsOnTable;
+        string lastTurn;
 
     public:
         Game(Player p1, Player p2);
+        void beforeGame();
         void setLog();
         void playTurn();
         void printLastTurn();
