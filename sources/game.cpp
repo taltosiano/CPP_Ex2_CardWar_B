@@ -93,6 +93,9 @@ void Game::playTurn(){
                                      + "play with" + cp2.cardToString() + "." + this->p1->getName() + "won. ";
         this->winner = p1->getName(); 
         numOfTurns++;
+        this->cardsOnTable = 0; 
+        this->setLog(lastTurn);
+        return;
     }
     if (cp1.trumpCard(cp2) == -1)
     {
@@ -103,41 +106,42 @@ void Game::playTurn(){
         this->winner = p2->getName();                               
         p2->setWins();
         numOfTurns++;
+        this->cardsOnTable = 0; 
+        this->setLog(lastTurn);
     }
     else{                 // tie situation
-         this->cardsOnTable+=2;
          numOfTurns++;
          while(!(p1->stacksize() == 0 && p2->stacksize() == 0)){
             this->p1->cardOnTop();             // down face cards
             this->p2->cardOnTop();
             this->setDraws();   
             this->cardsOnTable+=2;
-
+            
             if (p1->stacksize() == 0 && p2->stacksize() == 0)
             {
-                this->p1->cardWin(this->cardsOnTable\2); 
-                this->p2->cardWin(this->cardsOnTable\2);   
-				if(this->p1->cardesTaken() > this->p2->cardesTaken())
-                {
-					this->winner = this->p1->getName();
-					this->setLog(lastTurn);
-					break;
-                }
-				else {
-					if(this->p1->cardesTaken() < this->p2->cardesTaken())
-					{
-						this->winner = this->p2->getName();  
-						this->setLog(lastTurn);
-						break;
-					}
-					else
-					{
-							//if it's a tie will let the wu=inner be tie and we'll throw exception in the function printWiner
-						this->winner = "draw";
-						this->setLog(lastTurn);
-						break;
-					}          
-				}
+                // this->p1->cardWin((this->cardsOnTable)/2); 
+                // this->p2->cardWin((this->cardsOnTable)/2);   
+				// if(this->p1->cardesTaken() > this->p2->cardesTaken())
+                // {
+				// 	this->winner = this->p1->getName();
+				// 	this->setLog(lastTurn);
+				// 	break;
+                // }
+				// else {
+				// 	if(this->p1->cardesTaken() < this->p2->cardesTaken())
+				// 	{
+				// 		this->winner = this->p2->getName();  
+				// 		this->setLog(lastTurn);
+				// 		break;
+				// 	}
+				// 	else
+				// 	{
+				// 			//if it's a tie will let the wu=inner be tie and we'll throw exception in the function printWiner
+				// 		this->winner = "draw";
+				// 		this->setLog(lastTurn);
+				 		break;
+				// 	}          
+				// }
 		   }
            
             this->p1->cardOnTop();         //up face cards
@@ -152,7 +156,9 @@ void Game::playTurn(){
                 this->lastTurn =this->p1->getName() + "play with " + cp1.cardToString() + "and " + this->p2->getName()
                                             + "play with" + cp2.cardToString() + "." + this->p1->getName() + "won. ";
                 this->winner = p1->getName(); 
-                break;
+                cardsOnTable=0;
+                this->setLog(lastTurn);
+                return;
             }
             if (cp1.trumpCard(cp2) == -1)
             {
@@ -162,14 +168,17 @@ void Game::playTurn(){
                                             + "play with" + cp2.cardToString() + "." + this->p2->getName() + "won. ";
                 this->winner = p2->getName();                               
                 p2->setWins();
-                break;
+                cardsOnTable=0;
+                this->setLog(lastTurn);
+                return;
             }
         }
+        
            if (p1->stacksize() == 0 && p2->stacksize() == 0)
             {
-                this->p1->cardWin(this->cardsOnTable\2); 
-                this->p2->cardWin(this->cardsOnTable\2); 
-      
+                this->p1->cardWin((this->cardsOnTable)/2); 
+                this->p2->cardWin((this->cardsOnTable)/2); 
+                
 				if(this->p1->cardesTaken() > this->p2->cardesTaken())
                 {
 					this->winner = this->p1->getName();
@@ -191,8 +200,6 @@ void Game::playTurn(){
 		   }
     }
                    
-      this->cardsOnTable = 0; 
-      this->setLog(lastTurn);
 } 
 
 
