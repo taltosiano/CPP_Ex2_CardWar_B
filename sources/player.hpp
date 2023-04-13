@@ -18,8 +18,8 @@ class Player{
         int winsRate;
         
     public:
-        Player(string name); // constructor declaration
-        Player();
+        Player(string name); 
+        Player();             // default constructor
         string getName();
         int stacksize();
         const vector<Card>& getStack() const {

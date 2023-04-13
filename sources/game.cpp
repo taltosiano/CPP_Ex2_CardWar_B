@@ -12,7 +12,8 @@
 using namespace std;
 namespace ariel{
 
-Game::Game(Player& p1, Player& p2){
+//initialize a new game
+Game::Game(Player& p1, Player& p2){     
     this->p1 = &p1;
     this->p2 = &p2;
     this->cardsOnTable = 0;
@@ -24,6 +25,7 @@ Game::Game(Player& p1, Player& p2){
 
 }
 
+//In this function, a pot is created and divided between the players equally
 void Game::beforeGame(){
     vector<Card> deck;
     for (int num = 1; num <= 13; num++) {
@@ -48,17 +50,17 @@ void Game::beforeGame(){
         deck.pop_back();
 
         } 
-  
 }
 
+// activate of new turn
 void Game::playTurn(){
     if (this->p1 == this->p2)
             throw std::exception();
-    
-    if (p1->stacksize() == 0 && p2->stacksize() == 0)
+
+    // Under this condition we understand that the game is over and we will check who is the winner
+    if (p1->stacksize() == 0 && p2->stacksize() == 0)         
     {
-               //checking which player won and updating the winner and the turns stack
-        if(this->p1->cardesTaken() > this->p2->cardesTaken())
+        if(this->p1->cardesTaken() > this->p2->cardesTaken())   
             {
              this->winner = this->p1->getName();
              this->setLog(lastTurn);
@@ -73,31 +75,32 @@ void Game::playTurn(){
               }
             else
              {
-                    //if it's a tie will let the wu=inner be tie and we'll throw exception in the function printWiner
-                 this->winner = "draw";
+                    //tie situation
+                 this->winner = "tie";
                  this->setLog(lastTurn);
                  throw std::exception();
              }          
         }
     }
     Card cp1 = p1->getStack().back();    // This function can be used to fetch the last element of a vector container. (geeksforgeeks)
-    p1->cardOnTop();                     // player1 play with the top card
+    p1->cardOnTop();                     // draw card from player 1
     Card cp2 = p2->getStack().back();
-    p2->cardOnTop();                     // then player2 play with his top card
-    this->setDraws();
-    this->cardsOnTable += 2;
-    if(cp1.trumpCard(cp2) == 1){
+    p2->cardOnTop();                     // draw card from player 2
+    this->cardsOnTable += 2;             // 2 cards on table
+
+    //now we use the function of compare(who's won) from Player class
+    if(cp1.trumpCard(cp2) == 1){         // means player 1 won
         p1->cardWin(this->cardsOnTable);
         p1->setWins();
         this->lastTurn =this->p1->getName() + "play with " + cp1.cardToString() + "and " + this->p2->getName()
                                      + "play with" + cp2.cardToString() + "." + this->p1->getName() + "won. ";
         this->winner = p1->getName(); 
         numOfTurns++;
-        this->cardsOnTable = 0; 
-        this->setLog(lastTurn);
+        this->cardsOnTable = 0;           // The winner took the cards from the table
+        this->setLog(lastTurn);           //We will add the turn summary to the vector
         return;
     }
-    if (cp1.trumpCard(cp2) == -1)
+    if (cp1.trumpCard(cp2) == -1)      //means player 2 won
     {
         p2->cardWin(this->cardsOnTable);
         p2->setWins();
@@ -111,7 +114,7 @@ void Game::playTurn(){
     }
     else{                 // tie situation
          numOfTurns++;
-         while(!(p1->stacksize() == 0 && p2->stacksize() == 0)){
+         while(!(p1->stacksize() == 0 && p2->stacksize() == 0)){     //Checking that there are cards left for the players 
             this->p1->cardOnTop();             // down face cards
             this->p2->cardOnTop();
             this->setDraws();   
@@ -119,34 +122,12 @@ void Game::playTurn(){
             
             if (p1->stacksize() == 0 && p2->stacksize() == 0)
             {
-                // this->p1->cardWin((this->cardsOnTable)/2); 
-                // this->p2->cardWin((this->cardsOnTable)/2);   
-				// if(this->p1->cardesTaken() > this->p2->cardesTaken())
-                // {
-				// 	this->winner = this->p1->getName();
-				// 	this->setLog(lastTurn);
-				// 	break;
-                // }
-				// else {
-				// 	if(this->p1->cardesTaken() < this->p2->cardesTaken())
-				// 	{
-				// 		this->winner = this->p2->getName();  
-				// 		this->setLog(lastTurn);
-				// 		break;
-				// 	}
-				// 	else
-				// 	{
-				// 			//if it's a tie will let the wu=inner be tie and we'll throw exception in the function printWiner
-				// 		this->winner = "draw";
-				// 		this->setLog(lastTurn);
-				 		break;
-				// 	}          
-				// }
-		   }
+				break;
+		    }
            
             this->p1->cardOnTop();         //up face cards
             this->p2->cardOnTop();
-            this->setDraws(); 
+           // this->setDraws(); 
             this->cardsOnTable+=2;
             this->lastTurn =this->p1->getName() + "play with " + cp1.cardToString() + "and " + this->p2->getName() 
                           + "play with" + cp2.cardToString() + ". so that the game over in tie.";
@@ -173,11 +154,11 @@ void Game::playTurn(){
                 return;
             }
         }
-        
-           if (p1->stacksize() == 0 && p2->stacksize() == 0)
+            //If we ended in a tie and ran out of cards, we will divide it among the players
+           if (p1->stacksize() == 0 && p2->stacksize() == 0)     
             {
                 this->p1->cardWin((this->cardsOnTable)/2); 
-                this->p2->cardWin((this->cardsOnTable)/2); 
+                this->p2->cardWin((this->cardsOnTable)/2);   //Each player gets half of the cards thrown
                 
 				if(this->p1->cardesTaken() > this->p2->cardesTaken())
                 {
@@ -193,15 +174,13 @@ void Game::playTurn(){
 					else
 					{
 							//if it's a tie will let the wu=inner be tie and we'll throw exception in the function printWiner
-						this->winner = "draw";
+						this->winner = "tie";
 						this->setLog(lastTurn);
 					}          
 				}
 		   }
-    }
-                   
+    }                
 } 
-
 
 // print the last turn stats. 
 void Game::printLastTurn(){
@@ -210,7 +189,6 @@ void Game::printLastTurn(){
         throw std::exception();
     }
     cout << this->lastTurn << endl;
-
 }
 
 //playes the game untill the end
@@ -219,15 +197,14 @@ void Game::playAll(){
     {
         this->playTurn();
     }
-    cout << "Game is Done" << endl;
-    
+    cout << "Game is Done" << endl;   
 }
 
 // prints the name of the winning player
 void Game::printWiner(){
-    if(this->winner == "draw")
+    if(this->winner == "tie") 
     {
-        cout << "there is no winner. its draw." << endl;
+        cout << "there is no winner. its tie." << endl;
     }
    
     else{
@@ -262,7 +239,7 @@ void Game::printStats(){
     cout << "player number 2 Stats:" << endl;
     cout << p2->getName() + "wins: " + p2Wons + ", number of cards he won: " + to_string(p2->cardesTaken()) + ".";
     string dra = to_string(double(this->getDraws()*100)/this->numOfTurns);
-    cout <<  "the number of draws in this game: " + dra << endl;      
+    cout <<  " the draw rate is: " + dra + "and the number of draws in this game: " + to_string(double(this->getDraws()))<< endl;  
 }
 
     int Game::getDraws(){
@@ -272,5 +249,4 @@ void Game::printStats(){
     void Game::setDraws(){
         this->drawsRate++;
     }
-
 }

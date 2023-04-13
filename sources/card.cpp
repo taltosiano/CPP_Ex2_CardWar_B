@@ -34,24 +34,6 @@ string Card::cardToString(){
         cardType = to_string(this->getCardNum());
         break;
     } 
-    
-    // string sh="";
-    // if (shape == Diamond)
-    // {
-    //     sh = "Diamond";
-    // }
-    //  if (shape == Clover)
-    // {
-    //     sh = "Clover";
-    // }
-    //  if (shape == Spade)
-    // {
-    //     sh = "Spade";
-    // }
-    //  if (shape == Heart)
-    // {
-    //     sh = "Heart";
-    // }
     return cardType + "of" + to_string(this->getShape());
     
 } 
@@ -74,11 +56,10 @@ int Card::trumpCard(Card _card){
         return -1;
     }
     else{
-        return 0;        // it's a draw.
+        return 0;        // it's a tie.
     } 
     
 }
-
 
 int Card::getCardNum(){
     return this->number;
