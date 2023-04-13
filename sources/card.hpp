@@ -1,6 +1,7 @@
 #ifndef Card_hpp
 #define Card_hpp
 #pragma once
+#include <string>
 
 namespace ariel{
 
@@ -19,7 +20,7 @@ private:
 public:
     Card(int number, Shape shape);
     int getCardNum();
-    std::string cardToString;
+    std::string cardToString();
     Shape getShape();
     int trumpCard(Card _card);
 };    

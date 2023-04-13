@@ -3,6 +3,8 @@
 #pragma once
 #include "card.hpp"
 #include <string>
+#include <vector>
+
 
 using namespace std;
 namespace ariel{
@@ -14,21 +16,22 @@ class Player{
         vector<Card> stack;    // each player begin with 26
         int _cardsTaken;        // the amount of the cards the player won
         int winsRate;
-        int drawsRate;
         
     public:
         Player(string name); // constructor declaration
         Player();
         string getName();
         int stacksize();
+        const vector<Card>& getStack() const {
+          return stack;
+        }
         int cardesTaken();
         void cardOnTop();        // the next card the player play with
-        vector<Card> getStack;
+        void addCardToStack(Card c);
         void cardWin(int c);
         int getWins();
         void setWins();
-        int getDraws();
-        void setDraws();
+
 
 
 

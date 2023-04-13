@@ -1,6 +1,8 @@
 #include "player.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
+
 
 using namespace std;
 using namespace ariel;
@@ -11,23 +13,23 @@ using namespace ariel;
 
     Player::Player(string name){
         this->name = name;
-        this->_cardesTaken = 0;
+        this->_cardsTaken = 0;
         this->winsRate = 0;
-        this->drawsRate = 0;
     }
 
     string Player::getName(){
         return this->name;
     }
 
-    vector Player::getStack(){
-        return this->stack;
+    void Player::addCardToStack(Card c){
+         stack.push_back(c);
     }
 
     //prints the amount of cards left. should be 21 but can be less if a draw was played
     int Player::stacksize(){
         return this->stack.size();
     }
+
 
     // prints the amount of cards this player has won
     int Player::cardesTaken(){
@@ -40,23 +42,17 @@ using namespace ariel;
     }
 
     void Player::cardWin(int c){
-        this->_cardesTaken += c;
+        this->_cardsTaken += c;
     }
     int Player::getWins(){
-        this->winsRate;
+        return this->winsRate;
     }
 
     void Player::setWins(){
         this->winsRate++;
     }
 
-    int Player::getDraws(){
-        this->drawsRate;
-    }
-
-    void Player::setDraws(){
-        this->drawsRate++;
-    }
+   
    
 
 

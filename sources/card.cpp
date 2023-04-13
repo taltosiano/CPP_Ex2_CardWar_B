@@ -9,25 +9,8 @@ Card::Card(int number, Shape shape){
     this->shape = shape;
     } 
 
-string Card::getShape(){
-    string sh="";
-    if (shape == Diamond)
-    {
-        sh = "Diamond";
-    }
-     if (shape == Clover)
-    {
-        sh = "Clover";
-    }
-     if (shape == Spade)
-    {
-        sh = "Spade";
-    }
-     if (shape == Heart)
-    {
-        sh = "Heart";
-    }
-    return sh;
+Shape Card::getShape(){
+    return this->shape;
  }   
 
 string Card::cardToString(){
@@ -48,27 +31,45 @@ string Card::cardToString(){
         break;
  
     default:
-        cardType = to_string(this->getCardNum);
+        cardType = to_string(this->getCardNum());
         break;
     } 
-    return cardType + "of" + this->getShape;
+    
+    // string sh="";
+    // if (shape == Diamond)
+    // {
+    //     sh = "Diamond";
+    // }
+    //  if (shape == Clover)
+    // {
+    //     sh = "Clover";
+    // }
+    //  if (shape == Spade)
+    // {
+    //     sh = "Spade";
+    // }
+    //  if (shape == Heart)
+    // {
+    //     sh = "Heart";
+    // }
+    return cardType + "of" + to_string(this->getShape());
     
 } 
 
 int Card::trumpCard(Card _card){
-   if (this->getCardNum == 1 && _card.getCardNum != 1 && _card.getCardNum != 2)
+   if (this->getCardNum() == 1 && _card.getCardNum() != 1 && _card.getCardNum() != 2)
    {
        return 1;
    }
-    if (_card.getCardNum == 1 && this->getCardNum != 1 && this->getCardNum != 2)
+    if (_card.getCardNum() == 1 && this->getCardNum() != 1 && this->getCardNum() != 2)
    {
        return -1;
    }
-    if (this->getCardNum > _card.getCardNum)
+    if (this->getCardNum() > _card.getCardNum())
     {
         return 1;
     }
-    if (this->getCardNum > _card.getCardNum)
+    if (this->getCardNum() < _card.getCardNum())
     {
         return -1;
     }
