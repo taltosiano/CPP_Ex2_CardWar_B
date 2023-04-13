@@ -38,6 +38,7 @@ string Card::cardToString(){
     
 } 
 
+// A comparison function and deciding who is the winner among the two players
 int Card::trumpCard(Card _card){
    if (this->getCardNum() == 1 && _card.getCardNum() != 1 && _card.getCardNum() != 2)
    {

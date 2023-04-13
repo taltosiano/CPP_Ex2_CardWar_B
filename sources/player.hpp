@@ -32,11 +32,7 @@ class Player{
         int getWins();
         void setWins();
 
-
-
-
     };
         
-
 }
 #endif

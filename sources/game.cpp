@@ -7,8 +7,6 @@
 #include <random>
 #include <vector>
 
-
-
 using namespace std;
 namespace ariel{
 
@@ -22,7 +20,6 @@ Game::Game(Player& p1, Player& p2){
     this->winner = "";
     this->drawsRate = 0;
     this->numOfTurns = 0;
-
 }
 
 //In this function, a pot is created and divided between the players equally
@@ -39,7 +36,6 @@ void Game::beforeGame(){
     random_device rd;                     
     mt19937 g(rd());                      //In writing this command I was helped by google
     shuffle(deck.begin(), deck.end(), g);
-
 
     // divide the deck for 2
       for(int i = 0; i < 26; i++)
